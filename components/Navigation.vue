@@ -4,7 +4,7 @@
     :class="{ 'h-screen': open, 'bg-opacity-95': open }"
   >
     <div class="flex justify-between">
-      <nuxt-link to="/" prefetch><i>The Städelschule Anthology</i></nuxt-link>
+      <nuxt-link to="/" class="italic">The Städelschule Anthology</nuxt-link>
       <a class="lg:hidden cursor-pointer" @click="open = !open">ᐁ</a>
     </div>
 
@@ -31,7 +31,7 @@
       </div>
     </ul>
     <p :class="{ hidden: !open }" class="lg:block mt-7" @click="open = false">
-      <nuxt-link v-if="$nuxt.$route.path !== '/about'" to="/about" prefetch
+      <nuxt-link v-if="$nuxt.$route.path !== '/about'" to="/about"
         >About</nuxt-link
       >
       <nuxt-link v-if="$nuxt.$route.path !== '/'" to="/">Works</nuxt-link>
