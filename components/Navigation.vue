@@ -43,19 +43,8 @@ export default {
   name: 'NavBar',
   data() {
     return {
-      pages: [],
       open: false,
     }
-  },
-  async fetch({ store: { dispatch } }) {
-    await dispatch('getWorks')
-  },
-  computed: {
-    authors() {
-      return this.pages.map((p) => p.author)
-      // .slice()
-      // .sort((a, b) => a.localeCompare(b))
-    },
   },
   methods: {
     shuffle() {
