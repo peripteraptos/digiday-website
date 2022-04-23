@@ -45,13 +45,11 @@ export default {
     this.$store.commit('SET_ACTIVE', '/')
     this.observer.disconnect()
   },
-  beforeMount() {
+  mounted() {
     this.observer = new IntersectionObserver(this.onElementObserved, {
       threshold: [0, 0.25, 0.5, 0.75, 1],
       // rootMargin: '49%',
     })
-  },
-  mounted() {
     this.observer.observe(this.$refs.circle)
   },
   methods: {
