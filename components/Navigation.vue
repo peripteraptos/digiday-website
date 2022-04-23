@@ -9,8 +9,8 @@
     </div>
 
     <ul
-      class="mt-7 lg:block flex-grow"
-      :class="{ hidden: !open, 'opacity-0': $nuxt.$route.path !== '/' }"
+      class="mt-7 flex-grow"
+      :class="{ hidden: !open, 'lg:block': $nuxt.$route.path === '/' }"
     >
       <li
         v-for="{ author, isActive } in $store.getters.getAuthors"
@@ -19,14 +19,7 @@
         <span :class="{ 'font-bold': isActive }">{{ author }}</span>
       </li>
       <li class="text-red-500 font-bold mt-3 font-sans">
-        <a
-          class="cursor-pointer"
-          @click="
-            open = false
-            $store.commit('SHUFFLE_WORKS')
-          "
-          >RANDOM</a
-        >
+        <a class="cursor-pointer" @click="shuffle">RANDOM</a>
       </li>
       <li></li>
       <!--<p class="mt-10">
@@ -37,7 +30,7 @@
         <p>{{ $store.getters.getActiveWork.description }}</p>
       </div>
     </ul>
-    <p :class="{ hidden: !open }" class="lg:block" @click="open = false">
+    <p :class="{ hidden: !open }" class="lg:block mt-7" @click="open = false">
       <nuxt-link v-if="$nuxt.$route.path !== '/about'" to="/about"
         >About</nuxt-link
       >
@@ -62,6 +55,14 @@ export default {
       return this.pages.map((p) => p.author)
       // .slice()
       // .sort((a, b) => a.localeCompare(b))
+    },
+  },
+  methods: {
+    shuffle() {
+      this.open = false
+      document.activeElement.blur()
+      window.scrollTo({ top: 1000000, behavior: 'auto' })
+      this.$store.dispatch('shuffleWorks')
     },
   },
 }

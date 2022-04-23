@@ -1,5 +1,5 @@
 ---
-author: Artist 2
+author: The Kittens
 title: Work 1c
 description: 'Sed culpa deserunt rem praesentium debitis doloremque ipsam facilis'
 ---

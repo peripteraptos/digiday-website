@@ -1,12 +1,8 @@
 ---
 author: The Texts
-title: Work 2
-description: 'Sed aspernatur culpa rem praesentium debitis doloremque fugiat corporis ipsam facilis.'
+title: Text 2
+description: 'Sed culpa rem praesentium debitis doloremque fugiat corporis ipsam facilis.'
 ---
-
-# Headline
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed vulputate mi sit amet mauris. Massa tincidunt dui ut ornare lectus sit amet. Sit amet porttitor eget dolor morbi. Euismod quis viverra nibh cras pulvinar mattis nunc sed blandit. Leo integer malesuada nunc vel risus commodo viverra maecenas accumsan. Vitae congue mauris rhoncus aenean vel elit scelerisque mauris. Euismod elementum nisi quis eleifend quam adipiscing. Vulputate odio ut enim blandit volutpat maecenas volutpat blandit aliquam. Quis vel eros donec ac. Enim lobortis scelerisque fermentum dui. At erat pellentesque adipiscing commodo elit at imperdiet dui. Habitant morbi tristique senectus et netus et malesuada fames ac. Auctor augue mauris augue neque.
 
 _Dui_ ut ornare lectus sit amet est placerat. Nulla facilisi morbi tempus iaculis. Odio ut sem nulla pharetra diam sit amet. Commodo sed egestas egestas fringilla. _Amet risus nullam eget_ felis eget nunc lobortis mattis aliquam. Cursus mattis molestie a iaculis at erat pellentesque. Sapien nec sagittis aliquam malesuada bibendum arcu. Risus nec feugiat in fermentum posuere urna nec tincidunt praesent. Ut consequat semper viverra nam libero justo laoreet sit amet. Eu mi bibendum neque egestas congue quisque egestas diam. Purus gravida quis blandit turpis cursus in hac. A lacus vestibulum sed arcu. Varius vel pharetra vel turpis nunc. Ipsum a arcu cursus vitae congue. Placerat duis ultricies lacus sed turpis tincidunt id aliquet risus. Netus et malesuada fames ac turpis egestas sed tempus urna. Varius sit amet mattis vulputate enim nulla aliquet porttitor lacus. Pretium aenean pharetra magna ac placerat vestibulum lectus mauris ultrices. Amet nisl purus in mollis nunc sed id. Neque viverra justo nec ultrices dui sapien.
 

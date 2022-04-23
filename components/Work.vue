@@ -1,6 +1,6 @@
 <template>
   <div :class="{ 'has-border': document.path === $store.state.active }">
-    <nuxt-content :document="document" class="content min-h-screen mb-96" />
+    <nuxt-content :document="document" class="content" />
   </div>
 </template>
 <script>

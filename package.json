@@ -22,11 +22,12 @@
     "webpack": "^4.46.0"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.4.1",
     "@babel/eslint-parser": "^7.16.3",
+    "@kamona/tailwindcss-perspective": "^0.1.1",
     "@nuxtjs/eslint-config": "^8.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/tailwindcss": "^4.2.1",
+    "@tailwindcss/typography": "^0.4.1",
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-nuxt": "^3.1.0",

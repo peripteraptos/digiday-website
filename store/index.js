@@ -20,6 +20,7 @@ function shuffle(arr) {
 
 const state = () => ({
   active: '/',
+  shuffling: false,
   works: {
     status: INIT,
     error: null,
@@ -37,6 +38,9 @@ const mutations = {
   },
   SET_ACTIVE(state, path) {
     state.active = path
+  },
+  SET_SHUFFLING(state, shuffling) {
+    state.shuffling = shuffling
   },
 }
 
@@ -64,7 +68,16 @@ const actions = {
       // .limit(12)
       .fetch()
     commit('SET_WORKS', storeWorks)
+    commit('SHUFFLE_WORKS')
     if (storeWorks.length > 0) commit('SET_ACTIVE', storeWorks[0].path)
+  },
+  shuffleWorks({ commit }) {
+    commit('SHUFFLE_WORKS')
+    commit('SET_SHUFFLING', 1)
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'auto' })
+      commit('SET_SHUFFLING', 0)
+    }, 2000)
   },
 }
 

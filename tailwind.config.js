@@ -2,6 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 const typography = require('@tailwindcss/typography')
 
 module.exports = {
+  mode: 'jit',
   theme: {
     extend: {
       colors: {
@@ -9,5 +10,5 @@ module.exports = {
       },
     },
   },
-  plugins: [typography],
+  plugins: [typography, require('@kamona/tailwindcss-perspective')],
 }

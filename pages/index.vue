@@ -1,20 +1,31 @@
 <template>
-  <TransitionGroup tag="div" name="list" class="works" duration="1000">
-    <work
-      v-for="page in $store.getters.getWorks"
-      :key="page.path"
-      :data-index="page.path"
-      :document="page"
-      :observer="observer"
-    />
-  </TransitionGroup>
+  <div class="zoom" :class="{ 'zoom-out': false }">
+    <TransitionGroup tag="div" name="list" class="works" duration="1000">
+      <work
+        v-for="page in $store.getters.getWorks"
+        :key="page.path"
+        class="mb-96 flex flex-col justify-around min-h-screen py-36 text-center"
+        :data-index="page.path"
+        :document="page"
+        :observer="observer"
+      />
+    </TransitionGroup>
+    <div
+      class="flex flex-col justify-around min-h-screen py-36 items-center"
+      data-index="RANDOM"
+      ref="circle"
+    >
+      <random-circle />
+    </div>
+  </div>
 </template>
 
 <script>
+import RandomCircle from '~/components/RandomCircle.vue'
 import Work from '~/components/Work.vue'
 export default {
   name: 'IndexPage',
-  components: { Work },
+  components: { RandomCircle, Work },
 
   data() {
     return {
@@ -23,6 +34,7 @@ export default {
       visibleNext: null,
       intersect: {},
       works: [],
+      zoomOut: false,
     }
   },
   async fetch({ store: { dispatch } }) {
@@ -38,6 +50,9 @@ export default {
       // rootMargin: '49%',
     })
   },
+  mounted() {
+    this.observer.observe(this.$refs.circle)
+  },
   methods: {
     log(...e) {
       console.log(...e)
@@ -50,7 +65,15 @@ export default {
       )
       entries.forEach(({ target, isIntersecting, intersectionRatio }) => {
         const i = target.getAttribute('data-index')
-        this.intersect[i] = intersectionRatio
+        if (
+          i === 'RANDOM' &&
+          intersectionRatio > 0.5 &&
+          !this.$store.state.shuffling
+        ) {
+          this.$store.dispatch('shuffleWorks')
+        } else {
+          this.intersect[i] = intersectionRatio
+        }
 
         /* if (!isIntersecting) {
           if (this.visible === i || this.visible === null) {
@@ -80,8 +103,8 @@ export default {
 
 .list-move, /* apply transition to moving elements */
 .list-enter-active,
-.list-leave-active {
-  transition: all 1s ease;
+.list-leave-active, .zoom {
+  transition: all 2.5s ease;
 }
 
 .list-enter-from,
@@ -94,5 +117,9 @@ export default {
    animations can be calculated correctly. */
 .list-leave-active {
   position: absolute;
+}
+
+.zoom-out {
+  transform: scale(0.01);
 }
 </style>
