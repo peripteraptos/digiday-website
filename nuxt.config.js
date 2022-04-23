@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'digital-anthology',
+    title: 'Staedelschule Digitaltag Anthology',
     htmlAttrs: {
       lang: 'en',
     },
@@ -44,5 +44,17 @@ export default {
   content: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    loaders: {
+      vue: {
+        extend(config, { isDev }) {
+          // Extend only webpack config for client-bundle
+          console.log('isDev', isDev)
+          if (isDev) {
+            config.prettify = false
+          }
+        },
+      },
+    },
+  },
 }

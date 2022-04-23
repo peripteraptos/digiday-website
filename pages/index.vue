@@ -1,22 +1,23 @@
 <template>
-  <div class="zoom" :class="{ 'zoom-out': false }">
-    <TransitionGroup tag="div" name="list" class="works" duration="1000">
+  <div>
+    <TransitionGroup tag="div" name="list" class="works -mt-20" duration="1000">
       <work
         v-for="page in $store.getters.getWorks"
         :key="page.path"
-        class="mb-96 flex flex-col justify-around min-h-screen py-36 text-center"
+        class="flex flex-col justify-around min-h-screen py-36 text-center"
         :data-index="page.path"
         :document="page"
         :observer="observer"
       />
+      <div
+        key="RANDOM"
+        ref="circle"
+        class="flex flex-col justify-around min-h-screen py-36 items-center"
+        data-index="RANDOM"
+      >
+        <random-circle />
+      </div>
     </TransitionGroup>
-    <div
-      class="flex flex-col justify-around min-h-screen py-36 items-center"
-      data-index="RANDOM"
-      ref="circle"
-    >
-      <random-circle />
-    </div>
   </div>
 </template>
 
@@ -59,8 +60,8 @@ export default {
     },
     onElementObserved(entries) {
       console.log(
-        ...entries.map(({ target, isIntersecting }) => ({
-          isIntersecting,
+        ...entries.map(({ target, intersectionRatio }) => ({
+          intersectionRatio,
         }))
       )
       entries.forEach(({ target, isIntersecting, intersectionRatio }) => {
@@ -70,21 +71,11 @@ export default {
           intersectionRatio > 0.5 &&
           !this.$store.state.shuffling
         ) {
+          console.log(target, intersectionRatio)
           this.$store.dispatch('shuffleWorks')
         } else {
           this.intersect[i] = intersectionRatio
         }
-
-        /* if (!isIntersecting) {
-          if (this.visible === i || this.visible === null) {
-            if (this.visibleNext !== null) {
-              this.visible = this.visibleNext
-              this.$store.commit('SET_ACTIVE', this.visibleNext)
-            }
-          }
-        } else {
-          this.visibleNext = i
-        } */
       })
 
       const bla = Object.entries(this.intersect).sort(
