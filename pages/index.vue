@@ -1,10 +1,10 @@
 <template>
   <div>
-    <TransitionGroup tag="div" name="list" class="works -mt-20" duration="1000">
+    <TransitionGroup tag="div" name="list" class="works" duration="1000">
       <work
         v-for="page in $store.getters.getWorks"
         :key="page.path"
-        class="flex flex-col justify-around min-h-screen py-36 text-center"
+        class="flex flex-col justify-around min-h-screen py-36 first-of-type:pt-0 group- text-center"
         :data-index="page.path"
         :document="page"
         :observer="observer"
