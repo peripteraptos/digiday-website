@@ -55,23 +55,15 @@ export default {
     this.observer.observe(this.$refs.circle)
   },
   methods: {
-    log(...e) {
-      console.log(...e)
-    },
     onElementObserved(entries) {
-      console.log(
-        ...entries.map(({ target, intersectionRatio }) => ({
-          intersectionRatio,
-        }))
-      )
       entries.forEach(({ target, isIntersecting, intersectionRatio }) => {
         const i = target.getAttribute('data-index')
         if (
           i === 'RANDOM' &&
+          isIntersecting &&
           intersectionRatio > 0.5 &&
           !this.$store.state.shuffling
         ) {
-          console.log(target, intersectionRatio)
           this.$store.dispatch('shuffleWorks')
         } else {
           this.intersect[i] = intersectionRatio
@@ -81,7 +73,6 @@ export default {
       const bla = Object.entries(this.intersect).sort(
         (a, b) => b[1] - a[1]
       )[0][0]
-      console.log(bla)
       this.$store.commit('SET_ACTIVE', bla)
     },
   },
