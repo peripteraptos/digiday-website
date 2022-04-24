@@ -9,7 +9,7 @@
     </div>
 
     <ul
-      class="mt-7 flex-grow"
+      class="mt-7 flex-grow max-w-sm"
       :class="{ hidden: !open, 'lg:block': $nuxt.$route.path === '/' }"
     >
       <li

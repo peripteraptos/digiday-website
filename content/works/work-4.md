@@ -1,7 +1,7 @@
 ---
 author: The Texts
-title: Work 2
-description: 'Sed aspernatur culpa rem praesentium debitis doloremque fugiat corporis ipsam facilis.'
+title: Work 2b
+description: 'Sed culpa rem praesentium debitis doloremque fugiat corporis ipsam facilis.'
 ---
 
 # Headline
