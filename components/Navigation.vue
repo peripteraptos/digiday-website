@@ -30,7 +30,11 @@
         <p>{{ $store.getters.getActiveWork.description }}</p>
       </div>
     </ul>
-    <p :class="{ hidden: !open }" class="lg:block mt-7" @click="open = false">
+    <p
+      :class="{ hidden: !open }"
+      class="lg:block mt-7 underline"
+      @click="open = false"
+    >
       <nuxt-link v-if="$nuxt.$route.path !== '/about'" to="/about"
         >About</nuxt-link
       >
