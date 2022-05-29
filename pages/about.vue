@@ -1,17 +1,19 @@
 <template>
   <div>
-    <close-button class="m-5 fixed top-1 right-1 to-blue-300" />
+    <nuxt-link
+      to="/"
+      class="no-underline text-2xl p-5 fixed top-0 right-0 font-serif"
+      >✖</nuxt-link
+    >
 
-    <div class="content prose lg:max-w-3xl mx-auto p-5">
+    <div class="content prose lg:max-w-2xl mx-auto px-5 py-32 mt-1">
       <nuxt-content :document="page" />
     </div>
   </div>
 </template>
 <script>
-import CloseButton from '~/components/CloseButton.vue'
 export default {
   name: 'AboutPage',
-  components: { CloseButton },
   async asyncData({ $content }) {
     return {
       page: await $content('about').fetch(),

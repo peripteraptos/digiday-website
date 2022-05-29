@@ -1,8 +1,11 @@
 <template>
-  <div :class="{ 'has-border': document.path === $store.state.active }">
+  <div
+    :class="{ 'has-border': document.path === $store.state.active }"
+    @click.stop
+  >
     <nuxt-content :document="document" class="content" />
     <client-only>
-      <div v-if="!!document.vimeoID" class="embed-container">
+      <div v-if="!!document.vimeoID" class="embed-container select-none">
         <vimeo-player ref="player" :video-id="'' + document.vimeoID" />
       </div>
     </client-only>
@@ -29,7 +32,6 @@ export default {
 .content .embed-container {
   border-radius: 6px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
-  margin: 2rem 0;
 }
 
 .embed-container {

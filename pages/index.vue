@@ -1,38 +1,90 @@
 <template>
-  <div class="font-serif lg:grid lg:grid-cols-9">
+  <div class="font-serif cursor-help" @click="open = true">
     <!--<intro-page class="lg:col-span-9" />-->
-    <navigation class="p-5 lg:pr-26 col-span-3 w-full lg:max-w-xs" />
-
-    <div class="p-5 content col-span-4 lg:max-w-3xl prose mx-auto lg:mx-0">
-      <TransitionGroup tag="div" name="list" class="works" duration="1000">
-        <work
-          v-for="page in $store.getters.getWorks"
-          :key="page.path"
-          class="flex flex-col justify-around min-h-screen first-of-type:pt-0 work"
-          :data-index="page.path"
-          :document="page"
-          :observer="observer"
-        />
-        <div
-          key="RANDOM"
-          ref="circle"
-          class="flex flex-col justify-around min-h-screen py-36 items-center"
-          data-index="RANDOM"
-        >
-          <random-circle />
+    <nav
+      class="navigation z-10 top-0 fixed overflow-auto p-5 w-full transition-colors flex flex-col select-none"
+      style="cursor: crosshair"
+      :class="{ 'h-full bg-opacity-50 bg-white ': open }"
+      @click.stop="open = false"
+    >
+      <header class="flex justify-between">
+        <nuxt-link to="/" class="italic">The Städelschule Anthology</nuxt-link>
+        <a class="cursor-pointer text-2xl" @click.stop="open = !open">
+          {{ open ? '✖' : '▼' }}
+        </a>
+      </header>
+      <div
+        :class="{ hidden: !open }"
+        class="flex flex-col h-full flex-grow max-w-md"
+      >
+        <ul class="mt-8" :class="{ 'lg:block': $nuxt.$route.path === '/' }">
+          <li
+            v-for="{ author, isActive } in $store.getters.getAuthors"
+            :key="author"
+            class="inline author"
+          >
+            <span :class="{ active: isActive }" :data-text="author">
+              {{ author }}
+            </span>
+          </li>
+        </ul>
+        <div class="mt-8 font-sans flex-grow">
+          <a
+            class="text-red-500 underline cursor-pointer"
+            @click="$store.dispatch('shuffleWorks')"
+            >RANDOM</a
+          >
+          <p class="mt-3 underline text-blue-700">
+            <nuxt-link to="/about" @click.stop>ABOUT</nuxt-link>
+          </p>
         </div>
-      </TransitionGroup>
+        <!--<p class="mt-10">
+          <b>{{ $store.getters.getActiveWork.author }}</b>
+        </p>-->
+        <div v-if="$store.getters.getActiveWork" class="mt-6 h-24">
+          <p class="font-bold">{{ $store.getters.getActiveWork.author }}</p>
+          <p>
+            <span class="italic">{{ $store.getters.getActiveWork.title }}</span>
+            <span v-if="$store.getters.getActiveWork.year">
+              , {{ $store.getters.getActiveWork.year }}
+            </span>
+          </p>
+          <p>{{ $store.getters.getActiveWork.description }}</p>
+        </div>
+      </div>
+    </nav>
+    <div class="p-5 content col-span-4 prose mx-auto">
+      <work
+        v-for="p in $store.getters.getWorks"
+        :key="p.path"
+        class="first-of-type:pt-0 work cursor-default select-none"
+        :data-index="p.path"
+        :document="p"
+        :observer="observer"
+      />
+      <div
+        key="RANDOM"
+        ref="circle"
+        class="flex flex-col justify-around min-h-screen py-36 items-center"
+        data-index="RANDOM"
+      >
+        <random-circle />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import Navigation from '~/components/Navigation.vue'
 import RandomCircle from '~/components/RandomCircle.vue'
 import Work from '~/components/Work.vue'
 export default {
   name: 'IndexPage',
-  components: { RandomCircle, Work, Navigation },
+  components: { RandomCircle, Work },
+  async asyncData({ $content }) {
+    return {
+      page: await $content('about').fetch(),
+    }
+  },
 
   data() {
     return {
@@ -42,6 +94,7 @@ export default {
       intersect: {},
       works: [],
       zoomOut: false,
+      open: false,
     }
   },
   async fetch({ store: { dispatch } }) {
@@ -85,13 +138,45 @@ export default {
 }
 </script>
 <style scoped>
+.author {
+  white-space: normal;
+}
+.author span {
+  white-space: nowrap;
+  letter-spacing: 0.1px;
+}
+
+.author span[data-text].active {
+  visibility: hidden;
+  position: relative;
+}
+
+.author span[data-text].active:before {
+  visibility: visible;
+  position: absolute;
+  font-weight: bold;
+  letter-spacing: 0;
+  content: attr(data-text);
+  white-space: nowrap;
+}
+
+.author:not(:last-of-type):after {
+  content: '·';
+  margin: 0 0.3em;
+  white-space: nowrap;
+}
+.author::before {
+  content: ' ';
+  white-space: normal;
+}
+
 .work {
   /* max-height: 100vh; */
-  padding-bottom: 50vh;
+  margin-bottom: 50vh;
 }
 
 .work:first-of-type {
-  padding-top: 10em;
+  margin-top: 25vh;
 }
 
 .list-move, /* apply transition to moving elements */
