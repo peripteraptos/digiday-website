@@ -21,6 +21,7 @@ function shuffle(arr) {
 const state = () => ({
   active: '/',
   shuffling: false,
+  menu: false,
   works: {
     status: INIT,
     error: null,
@@ -41,6 +42,9 @@ const mutations = {
   },
   SET_SHUFFLING(state, shuffling) {
     state.shuffling = shuffling
+  },
+  SET_MENU(state, menu) {
+    state.menu = menu
   },
 }
 
