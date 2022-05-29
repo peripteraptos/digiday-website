@@ -8,11 +8,13 @@ export default {
 </script>
 <style scoped>
 .random {
-  width: 200px;
-  height: 200px;
+  --size: min(70vmin, 500px);
+  width: var(--size);
+  height: var(--size);
   border: 1.5px solid black;
   border-radius: 50%;
   position: relative;
+  transition: transform 0.1s ease;
   transform-origin: center;
   transform: rotateZ(130deg);
 }
@@ -30,7 +32,7 @@ export default {
   }
 }
 .random:after {
-  top: 100px;
+  top: calc(var(--size) / 2);
   left: -15px;
   line-height: 0;
   position: absolute;
