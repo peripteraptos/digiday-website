@@ -1,12 +1,25 @@
 <template>
   <div
-    :class="{ 'has-border': document.path === $store.state.active }"
-    @click.stop
+    :class="{
+      'has-border': document.path === $store.state.active,
+    }"
+    @click.stop="fullscreen = !fullscreen"
   >
     <nuxt-content :document="document" class="content" />
+    <a
+      v-if="document.imageUrl"
+      :href="document.imageUrl"
+      target="_blank"
+      class="content"
+      ><img :src="document.imageUrl"
+    /></a>
     <client-only>
       <div v-if="!!document.vimeoID" class="embed-container select-none">
-        <vimeo-player ref="player" :video-id="'' + document.vimeoID" />
+        <vimeo-player
+          ref="player"
+          :video-id="'' + document.vimeoID"
+          :options="{ dnt: true, loop: true, title: false }"
+        />
       </div>
     </client-only>
   </div>
@@ -28,6 +41,11 @@ export default {
       type: Number,
       default: 0,
     },
+  },
+  data() {
+    return {
+      fullscreen: false,
+    }
   },
   watch: {
     intersect(v) {
@@ -52,7 +70,7 @@ export default {
 <style>
 .content img,
 .embed-container {
-  border-radius: 6px;
+  /*border-radius: 6px;*/
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
 }
 
