@@ -1,32 +1,38 @@
 <template>
-  <div>
-    <TransitionGroup tag="div" name="list" class="works" duration="1000">
-      <work
-        v-for="page in $store.getters.getWorks"
-        :key="page.path"
-        class="flex flex-col justify-around min-h-screen py-36 first-of-type:pt-0 group- text-center"
-        :data-index="page.path"
-        :document="page"
-        :observer="observer"
-      />
-      <div
-        key="RANDOM"
-        ref="circle"
-        class="flex flex-col justify-around min-h-screen py-36 items-center"
-        data-index="RANDOM"
-      >
-        <random-circle />
-      </div>
-    </TransitionGroup>
+  <div class="font-serif lg:grid lg:grid-cols-9">
+    <!--<intro-page class="lg:col-span-9" />-->
+    <navigation class="p-5 lg:pr-26 col-span-3 w-full lg:max-w-xs" />
+
+    <div class="p-5 content col-span-4 lg:max-w-3xl prose mx-auto lg:mx-0">
+      <TransitionGroup tag="div" name="list" class="works" duration="1000">
+        <work
+          v-for="page in $store.getters.getWorks"
+          :key="page.path"
+          class="flex flex-col justify-around min-h-screen first-of-type:pt-0 work"
+          :data-index="page.path"
+          :document="page"
+          :observer="observer"
+        />
+        <div
+          key="RANDOM"
+          ref="circle"
+          class="flex flex-col justify-around min-h-screen py-36 items-center"
+          data-index="RANDOM"
+        >
+          <random-circle />
+        </div>
+      </TransitionGroup>
+    </div>
   </div>
 </template>
 
 <script>
+import Navigation from '~/components/Navigation.vue'
 import RandomCircle from '~/components/RandomCircle.vue'
 import Work from '~/components/Work.vue'
 export default {
   name: 'IndexPage',
-  components: { RandomCircle, Work },
+  components: { RandomCircle, Work, Navigation },
 
   data() {
     return {
@@ -79,8 +85,13 @@ export default {
 }
 </script>
 <style scoped>
-.works {
+.work {
   /* max-height: 100vh; */
+  padding-bottom: 50vh;
+}
+
+.work:first-of-type {
+  padding-top: 10em;
 }
 
 .list-move, /* apply transition to moving elements */
