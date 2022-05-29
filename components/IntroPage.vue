@@ -1,29 +1,24 @@
 <template>
   <div
     v-if="visible"
-    class="w-full h-screen flex justify-center items-start text-center flex-wrap"
+    class="w-full h-screen flex justify-center items-center py-20 text-center flex-wrap"
   >
-    <h1
-      class="italic align-top block w-full self-start justify-self-start mt-5"
-    >
-      The Städelschule Anthology
-    </h1>
-    <div class="flex justify-center items-center">
+    <div class="flex justify-center items-center align-middle">
       <div class="absolute mx-auto -rotate-90">
         <random-circle
           :style="{
             transform:
               'rotateZ(' +
-              (45 + parseInt((1 - intersectionRatio) * 360 * 5)) +
+              (45 + parseInt((1 - intersectionRatio) * 360 * 3)) +
               'deg)',
           }"
         />
       </div>
-      <ul class="leading-5">
+      <TransitionGroup name="fade" tag="ul" class="leading-5">
         <li v-for="{ author, path } in $store.getters.getWorks" :key="path">
           {{ author }}
         </li>
-      </ul>
+      </TransitionGroup>
     </div>
   </div>
 </template>
@@ -61,4 +56,24 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+/* 1. declare transition */
+.fade-move,
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 2s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+/* 2. declare enter from and leave to state */
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: scaleY(0.01) translate(30px, 0);
+}
+
+/* 3. ensure leaving items are taken out of layout flow so that moving
+      animations can be calculated correctly. */
+.fade-leave-active {
+  position: absolute;
+}
+</style>

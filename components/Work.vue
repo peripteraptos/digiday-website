@@ -21,6 +21,28 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    active: {
+      type: Boolean,
+    },
+    intersect: {
+      type: Number,
+      default: 0,
+    },
+  },
+  watch: {
+    intersect(v) {
+      // if (!this.$refs.player) return
+      // this.$refs.player.player.setVolume(v)
+    },
+    active(active) {
+      if (!this.$refs.player) return
+      console.log(this.$refs.player)
+      if (active) {
+        this.$refs.player.play()
+      } else {
+        this.$refs.player.pause()
+      }
+    },
   },
   mounted() {
     this.observer.observe(this.$el)
@@ -29,7 +51,7 @@ export default {
 </script>
 <style>
 .content img,
-.content .embed-container {
+.embed-container {
   border-radius: 6px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
 }

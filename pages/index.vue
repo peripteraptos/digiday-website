@@ -1,6 +1,6 @@
 <template>
   <div class="font-serif cursor-help" @click="open = true">
-    <!--<intro-page class="lg:col-span-9" />-->
+    <intro-page class="lg:col-span-9" />
     <nav
       class="navigation z-10 top-0 fixed overflow-auto p-5 w-full transition-colors flex flex-col select-none"
       style="cursor: crosshair"
@@ -53,33 +53,38 @@
         </div>
       </div>
     </nav>
-    <div class="p-5 content col-span-4 prose mx-auto">
+    <div class="p-5 col-span-4 max-w-2xl mx-auto">
       <work
         v-for="p in $store.getters.getWorks"
         :key="p.path"
-        class="first-of-type:pt-0 work cursor-default select-none"
+        class="first-of-type:pt-0 work cursor-default select-none prose max-w-none"
         :data-index="p.path"
+        :active="
+          $store.getters.getActiveWork &&
+          $store.getters.getActiveWork.path == p.path
+        "
+        :intersect="p.intersect"
         :document="p"
         :observer="observer"
       />
       <div
         key="RANDOM"
         ref="circle"
-        class="flex flex-col justify-around min-h-screen py-36 items-center"
+        class="flex flex-col justify-around min-h-screen items-center"
         data-index="RANDOM"
       >
-        <random-circle />
+        <intro-page />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import RandomCircle from '~/components/RandomCircle.vue'
+import IntroPage from '~/components/IntroPage.vue'
 import Work from '~/components/Work.vue'
 export default {
   name: 'IndexPage',
-  components: { RandomCircle, Work },
+  components: { Work, IntroPage },
   async asyncData({ $content }) {
     return {
       page: await $content('about').fetch(),
@@ -106,7 +111,7 @@ export default {
   },
   beforeMount() {
     this.observer = new IntersectionObserver(this.onElementObserved, {
-      threshold: [0, 0.25, 0.5, 0.75, 1],
+      threshold: [0, 0.1, 0.25, 0.5, 0.6, 0.75, 1],
       // rootMargin: '49%',
     })
   },
@@ -125,6 +130,10 @@ export default {
         ) {
           this.$store.dispatch('shuffleWorks')
         } else {
+          this.$store.commit('SET_INTERSECT', {
+            work: i,
+            intersect: intersectionRatio,
+          })
           this.intersect[i] = intersectionRatio
         }
       })

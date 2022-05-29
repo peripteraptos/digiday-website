@@ -46,6 +46,10 @@ const mutations = {
   SET_MENU(state, menu) {
     state.menu = menu
   },
+  SET_INTERSECT(state, { work, intersect }) {
+    const w = state.works.data.find((w) => w.path === work)
+    w.intersect = intersect
+  },
 }
 
 const getters = {
