@@ -1,7 +1,7 @@
 ---
-author: Gasper Kunsic
+author: Gašper Kunšič
 title: AWKWARD SILENCE​
 year: 2019
-description: video animation, 8 min
+description: video animation, loop, 08:10 min
 vimeoID: '317082400'
 ---

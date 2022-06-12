@@ -1,6 +1,10 @@
 ---
 author: Julian Krause
 title: Besonderes Schwein
-description:
-imageUrl: https://placekitten.com/700/650
+description: 0:08
+video-src: '/julian_krause/besonderesschwein.webm'
+show-controls: false
+autoplay: true
+muted: true
+loop: true
 ---

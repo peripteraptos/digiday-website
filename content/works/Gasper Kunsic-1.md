@@ -1,6 +1,6 @@
 ---
-author: Gasper Kunsic
+author: Gašper Kunšič
 title: when I thunder
 description:
-imageUrl: https://placebear.com/g/1200/1000
+image-src: https://placebear.com/g/1200/1000
 ---

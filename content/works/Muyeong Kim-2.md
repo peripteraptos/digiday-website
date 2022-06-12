@@ -1,6 +1,6 @@
 ---
 author: Muyeong Kim
-title: Socket: Lateral Exits, Chiaroscuro as a Predicament, Dollhouse
+title: 'Socket: Lateral Exits, Chiaroscuro as a Predicament, Dollhouse'
 year: 2021
 description: 00:09:56, single channel video(monitor)FHD, color, mono car woofer speaker
 ---
