@@ -1,5 +1,6 @@
 <template>
   <div
+    class="z-10 relative"
     :class="{
       'has-border': document.path === $store.state.active,
     }"
@@ -7,12 +8,28 @@
   >
     <nuxt-content :document="document" class="content" />
     <a
-      v-if="document.imageUrl"
-      :href="document.imageUrl"
+      v-if="document['image-src']"
+      :href="document['image-href'] || document['image-src']"
       target="_blank"
       class="content"
-      ><img :src="document.imageUrl"
+      ><img :src="document['image-src']" class="mx-auto"
     /></a>
+    <div v-else-if="!!document['audio-src']">
+      <audio ref="player" controls loop class="mx-auto">
+        <source :src="document['audio-src']" />
+      </audio>
+    </div>
+    <div v-else-if="!!document['video-src']">
+      <video
+        :ref="!document['autoplay'] ? 'player' : null"
+        :autoplay="!!document['autoplay']"
+        :muted="!!document['autoplay']"
+        :controls="!!document['show-controls']"
+        :loop="!!document['loop']"
+      >
+        <source :src="document['video-src']" />
+      </video>
+    </div>
     <client-only>
       <div v-if="!!document.vimeoID" class="embed-container select-none">
         <vimeo-player
@@ -69,9 +86,10 @@ export default {
 </script>
 <style>
 .content img,
-.embed-container {
+.embed-container,
+.con video {
   /*border-radius: 6px;*/
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
+  /*box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);*/
 }
 
 .embed-container {

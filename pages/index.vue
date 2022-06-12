@@ -1,16 +1,21 @@
 <template>
-  <div class="font-serif cursor-help" @click="open = true">
+  <div
+    class="font-serif"
+    style="cursor: url(/menu.svg), help"
+    @click="open = true"
+  >
+    <play-overlay />
     <intro-page class="lg:col-span-9" />
     <nav
-      class="navigation z-10 top-0 fixed overflow-auto p-5 w-full transition-colors flex flex-col select-none"
-      style="cursor: crosshair"
-      :class="{ 'h-full bg-opacity-50 bg-white ': open }"
+      class="navigation z-0 top-0 fixed overflow-auto p-5 w-full transition-colors flex flex-col select-none"
+      style="cursor: url(/close.svg), crosshair"
+      :class="{ 'h-full ': open }"
       @click.stop="open = false"
     >
       <header class="flex justify-between">
         <nuxt-link to="/" class="italic">The Städelschule Anthology</nuxt-link>
-        <a class="cursor-pointer text-2xl" @click.stop="open = !open">
-          {{ open ? '✖' : '▼' }}
+        <a class="cursor-pointer font-mono" @click.stop="open = !open">
+          {{ open ? 'close' : 'menu' }}
         </a>
       </header>
       <div
@@ -41,16 +46,16 @@
         <!--<p class="mt-10">
           <b>{{ $store.getters.getActiveWork.author }}</b>
         </p>-->
-        <div v-if="$store.getters.getActiveWork" class="mt-6 h-24">
-          <p class="font-bold">{{ $store.getters.getActiveWork.author }}</p>
-          <p>
-            <span class="italic">{{ $store.getters.getActiveWork.title }}</span>
-            <span v-if="$store.getters.getActiveWork.year">
-              , {{ $store.getters.getActiveWork.year }}
-            </span>
-          </p>
-          <p>{{ $store.getters.getActiveWork.description }}</p>
-        </div>
+      </div>
+      <div v-if="$store.getters.getActiveWork" class="fixed bottom-10 h-16">
+        <p class="font-bold">{{ $store.getters.getActiveWork.author }}</p>
+        <p>
+          <span class="italic">{{ $store.getters.getActiveWork.title }}</span
+          ><span v-if="$store.getters.getActiveWork.year"
+            >, {{ $store.getters.getActiveWork.year }}
+          </span>
+        </p>
+        <p>{{ $store.getters.getActiveWork.description }}</p>
       </div>
     </nav>
     <div class="p-5 col-span-4 max-w-2xl mx-auto">
@@ -81,10 +86,11 @@
 
 <script>
 import IntroPage from '~/components/IntroPage.vue'
+import PlayOverlay from '~/components/PlayOverlay.vue'
 import Work from '~/components/Work.vue'
 export default {
   name: 'IndexPage',
-  components: { Work, IntroPage },
+  components: { Work, IntroPage, PlayOverlay },
   async asyncData({ $content }) {
     return {
       page: await $content('about').fetch(),
@@ -105,6 +111,7 @@ export default {
   async fetch({ store: { dispatch } }) {
     await dispatch('getWorks')
   },
+
   beforeDestroy() {
     this.$store.commit('SET_ACTIVE', '/')
     this.observer.disconnect()
@@ -117,6 +124,7 @@ export default {
   },
   mounted() {
     this.observer.observe(this.$refs.circle)
+    this.$store.dispatch('shuffleWorks')
   },
   methods: {
     onElementObserved(entries) {
@@ -181,7 +189,7 @@ export default {
 
 .work {
   /* max-height: 100vh; */
-  margin-bottom: 50vh;
+  margin-bottom: 80vh;
 }
 
 .work:first-of-type {

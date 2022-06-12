@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="visible"
-    class="w-full h-screen flex justify-center items-center py-20 text-center flex-wrap"
+    class="w-full min-h-screen flex justify-center items-center py-20 text-center flex-wrap"
   >
     <div class="flex justify-center items-center align-middle">
       <div class="absolute mx-auto -rotate-90">
