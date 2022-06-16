@@ -8,6 +8,9 @@ module.exports = {
       colors: {
         primary: defaultTheme.colors.green,
       },
+      scale: {
+        '-1': '-1',
+      },
     },
   },
   plugins: [typography, require('@kamona/tailwindcss-perspective')],

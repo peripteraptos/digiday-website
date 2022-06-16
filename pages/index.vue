@@ -1,96 +1,106 @@
 <template>
-  <div
-    class="font-serif"
-    style="cursor: url(/menu.svg), help"
-    @click="open = true"
-  >
-    <play-overlay />
-    <intro-page class="lg:col-span-9" />
+  <div class="font-serif max-w-4xl mx-auto bg-white relative">
     <nav
-      class="navigation z-0 top-0 fixed overflow-auto p-5 w-full transition-colors flex flex-col select-none"
-      style="cursor: url(/close.svg), crosshair"
+      class="navigation z-0 top-0 left-0 fixed w-full h-6 transition-colors select-none"
       :class="{ 'h-full ': open }"
-      @click.stop="open = false"
     >
-      <header class="flex justify-between">
-        <nuxt-link to="/" class="italic">The Städelschule Anthology</nuxt-link>
-        <a class="cursor-pointer font-mono" @click.stop="open = !open">
+      <div class="max-w-4xl mx-auto flex flex-col px-4 py-2">
+        <a class="italic cursor-pointer" @click.stop="open = !open"
+          ><header class="flex justify-between items-start">
+            <span>The Städelschule Anthology<br />Digitaltag 2022</span>
+            <div
+              class="ml-10 transition-transform origin-center whitespace-nowrap"
+              :class="{ '-scale-y-1': open }"
+            >
+              <span class="text-lg">▼ </span>
+              <span class="align-top not-italic">menu</span>
+            </div>
+            <!--<a class="cursor-pointer font-mono" @click.stop="open = !open">
           {{ open ? 'close' : 'menu' }}
-        </a>
-      </header>
-      <div
-        :class="{ hidden: !open }"
-        class="flex flex-col h-full flex-grow max-w-md"
-      >
-        <ul class="mt-8" :class="{ 'lg:block': $nuxt.$route.path === '/' }">
-          <li
-            v-for="{ author, isActive } in $store.getters.getAuthors"
-            :key="author"
-            class="inline author"
-          >
-            <span :class="{ active: isActive }" :data-text="author">
-              {{ author }}
-            </span>
-          </li>
-        </ul>
-        <div class="mt-8 font-sans flex-grow">
-          <a
-            class="text-red-500 underline cursor-pointer"
-            @click="$store.dispatch('shuffleWorks')"
-            >RANDOM</a
-          >
-          <p class="mt-3 underline text-blue-700">
-            <nuxt-link to="/about" @click.stop>ABOUT</nuxt-link>
-          </p>
+        </a>-->
+          </header></a
+        >
+        <div
+          :class="{ hidden: !open }"
+          class="flex flex-col h-full flex-grow max-w-md"
+        >
+          <ul class="mt-8" :class="{ 'lg:block': $nuxt.$route.path === '/' }">
+            <li
+              v-for="{ author, isActive } in $store.getters.getAuthors"
+              :key="author"
+              class="inline author"
+            >
+              <span :class="{ active: isActive }" :data-text="author">
+                {{ author }}
+              </span>
+            </li>
+          </ul>
+          <div class="mt-8 font-sans flex-grow">
+            <a
+              class="text-red-500 underline cursor-pointer"
+              @click="$store.dispatch('shuffleWorks')"
+              >random</a
+            >
+            <p class="mt-3 underline text-blue-700">
+              <nuxt-link to="/about" @click.stop>about</nuxt-link>
+            </p>
+          </div>
         </div>
-        <!--<p class="mt-10">
-          <b>{{ $store.getters.getActiveWork.author }}</b>
-        </p>-->
-      </div>
-      <div v-if="$store.getters.getActiveWork" class="fixed bottom-10 h-16">
-        <p class="font-bold">{{ $store.getters.getActiveWork.author }}</p>
-        <p>
-          <span class="italic">{{ $store.getters.getActiveWork.title }}</span
-          ><span v-if="$store.getters.getActiveWork.year"
-            >, {{ $store.getters.getActiveWork.year }}
-          </span>
-        </p>
-        <p>{{ $store.getters.getActiveWork.description }}</p>
+        <div
+          v-if="$store.getters.getActiveWork"
+          class="fixed bottom-8 max-w-xs"
+        >
+          <p class="font-bold">{{ $store.getters.getActiveWork.author }}</p>
+          <p>
+            <span class="italic">{{ $store.getters.getActiveWork.title }}</span
+            ><span v-if="$store.getters.getActiveWork.year"
+              >, {{ $store.getters.getActiveWork.year }}
+            </span>
+          </p>
+          <p>{{ $store.getters.getActiveWork.description }}</p>
+        </div>
       </div>
     </nav>
-    <div class="p-5 col-span-4 max-w-2xl mx-auto">
-      <work
-        v-for="p in $store.getters.getWorks"
-        :key="p.path"
-        class="first-of-type:pt-0 work cursor-default select-none prose max-w-none"
-        :data-index="p.path"
-        :active="
-          $store.getters.getActiveWork &&
-          $store.getters.getActiveWork.path == p.path
-        "
-        :intersect="p.intersect"
-        :document="p"
+    <div>
+      <intro-page
+        key="INTRO"
         :observer="observer"
+        data-index="INTRO"
+        class="intro"
       />
-      <div
-        key="RANDOM"
-        ref="circle"
-        class="flex flex-col justify-around min-h-screen items-center"
-        data-index="RANDOM"
-      >
-        <intro-page />
-      </div>
+      <template v-if="$store.state.clicked">
+        <work
+          v-for="p in $store.getters.getWorks"
+          v-show="!$store.state.shuffling"
+          :key="p.path"
+          class="first-of-type:pt-0 work cursor-default select-none prose max-w-none"
+          :data-index="p.path"
+          :active="
+            $store.getters.getActiveWork &&
+            $store.getters.getActiveWork.path == p.path
+          "
+          :intersect="p.intersect"
+          :document="p"
+          :observer="observer"
+        />
+        <intro-page
+          v-show="!$store.state.shuffling && $store.state.clicked"
+          key="RANDOM"
+          ref="circle"
+          :observer="observer"
+          data-index="RANDOM"
+        />
+      </template>
     </div>
   </div>
 </template>
 
 <script>
 import IntroPage from '~/components/IntroPage.vue'
-import PlayOverlay from '~/components/PlayOverlay.vue'
 import Work from '~/components/Work.vue'
 export default {
   name: 'IndexPage',
-  components: { Work, IntroPage, PlayOverlay },
+  components: { Work, IntroPage },
   async asyncData({ $content }) {
     return {
       page: await $content('about').fetch(),
@@ -123,8 +133,7 @@ export default {
     })
   },
   mounted() {
-    this.observer.observe(this.$refs.circle)
-    this.$store.dispatch('shuffleWorks')
+    // this.$store.dispatch('shuffleWorks')
   },
   methods: {
     onElementObserved(entries) {
@@ -133,7 +142,7 @@ export default {
         if (
           i === 'RANDOM' &&
           isIntersecting &&
-          intersectionRatio > 0.5 &&
+          intersectionRatio > 0.75 &&
           !this.$store.state.shuffling
         ) {
           this.$store.dispatch('shuffleWorks')
@@ -190,10 +199,11 @@ export default {
 .work {
   /* max-height: 100vh; */
   margin-bottom: 80vh;
+  margin-top: 80vh;
 }
 
-.work:first-of-type {
-  margin-top: 25vh;
+.work + .work {
+  margin-top: 0;
 }
 
 .list-move, /* apply transition to moving elements */

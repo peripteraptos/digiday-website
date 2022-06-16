@@ -1,24 +1,29 @@
 <template>
-  <div
-    v-if="visible"
-    class="w-full min-h-screen flex justify-center items-center py-20 text-center flex-wrap"
-  >
-    <div class="flex justify-center items-center align-middle">
-      <div class="absolute mx-auto -rotate-90">
-        <random-circle
-          :style="{
-            transform:
-              'rotateZ(' +
-              (45 + parseInt((1 - intersectionRatio) * 360 * 3)) +
-              'deg)',
-          }"
-        />
+  <div class="flex flex-col justify-around min-h-screen items-center">
+    <div
+      class="w-full min-h-screen flex justify-center items-center text-center flex-wrap"
+    >
+      <div v-if="!$store.state.clicked" class="play" @click.stop="play"></div>
+      <div v-else class="z-30 w-screen background-rtw pointer-events-none">
+        <div class="flex justify-center items-center align-middle">
+          <div class="absolute mx-auto -rotate-90">
+            <random-circle
+              class=""
+              :style="{
+                transform:
+                  'rotateZ(' +
+                  (45 + parseInt((1 - intersectionRatio) * 360 * 3)) +
+                  'deg)',
+              }"
+            />
+          </div>
+          <TransitionGroup name="fade" tag="ul" class="leading-5 z-20">
+            <li v-for="{ author, path } in $store.getters.getWorks" :key="path">
+              <span>{{ author }}</span>
+            </li>
+          </TransitionGroup>
+        </div>
       </div>
-      <TransitionGroup name="fade" tag="ul" class="leading-5">
-        <li v-for="{ author, path } in $store.getters.getWorks" :key="path">
-          {{ author }}
-        </li>
-      </TransitionGroup>
     </div>
   </div>
 </template>
@@ -26,21 +31,22 @@
 <script>
 import RandomCircle from './RandomCircle.vue'
 
-const threshold = Array(360)
+/* const threshold = Array(360)
   .fill(1)
-  .map((x, y) => (x + y) / 360)
+  .map((x, y) => (x + y) / 360) */
 export default {
   name: 'IntroPage',
   components: { RandomCircle },
+  props: ['observer'],
   data() {
     return {
-      observer: null,
+      ownObserver: null,
       visible: true,
       intersectionRatio: 0,
     }
   },
-  beforeMount() {
-    this.observer = new IntersectionObserver(
+  /* beforeMount() {
+    this.ownObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach(({ isIntersecting, intersectionRatio }) => {
           this.intersectionRatio = intersectionRatio
@@ -49,9 +55,18 @@ export default {
       },
       { threshold }
     )
-  },
+  }, */
   mounted() {
+    // this.ownObserver.observe(this.$el)
     this.observer.observe(this.$el)
+  },
+  methods: {
+    play() {
+      this.$store.commit('SET_CLICKED')
+      this.$nextTick(() => {
+        this.$store.dispatch('shuffleWorks')
+      })
+    },
   },
 }
 </script>
@@ -75,5 +90,23 @@ export default {
       animations can be calculated correctly. */
 .fade-leave-active {
   position: absolute;
+}
+
+.background-rtw {
+  background: radial-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.play {
+  width: 0;
+  height: 0;
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+
+  border-left: 100px solid black;
+  cursor: pointer;
+}
+
+.play:hover {
+  border-left-color: lightgray;
 }
 </style>

@@ -1,12 +1,14 @@
 <template>
   <div>
-    <nuxt-link
-      to="/"
-      class="no-underline text-2xl p-5 fixed top-0 right-0 font-serif"
-      >✖</nuxt-link
-    >
+    <div class="fixed left-0 top-0 right-0">
+      <div class="max-w-4xl mx-auto text-right px-4 py-2">
+        <nuxt-link to="/" class="no-underline"
+          ><span class="font-serif mr-2">◀</span><span>back</span></nuxt-link
+        >
+      </div>
+    </div>
 
-    <div class="content prose lg:max-w-2xl mx-auto px-5 py-32 mt-1">
+    <div class="content prose lg:max-w-2xl mt-1 text-left">
       <nuxt-content :document="page" />
     </div>
   </div>

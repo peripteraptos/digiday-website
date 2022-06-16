@@ -19,9 +19,12 @@ function shuffle(arr) {
 }
 
 const state = () => ({
-  active: '/',
+  clicked: false,
+  active: 'INTRO',
   shuffling: false,
   menu: false,
+  time: 0,
+  duration: 0,
   works: {
     status: INIT,
     error: null,
@@ -30,6 +33,15 @@ const state = () => ({
 })
 
 const mutations = {
+  SET_DURATION(state, duration) {
+    state.duration = duration
+  },
+  SET_CURRENT_TIME(state, time) {
+    state.time = time
+  },
+  SET_CLICKED(state) {
+    state.clicked = true
+  },
   SHUFFLE_WORKS(state) {
     state.works.data = shuffle(state.works.data)
   },
@@ -48,11 +60,14 @@ const mutations = {
   },
   SET_INTERSECT(state, { work, intersect }) {
     const w = state.works.data.find((w) => w.path === work)
+    if (!w) return
     w.intersect = intersect
   },
 }
 
 const getters = {
+  getPlaybackPercent: (state) =>
+    state.duration === 0 ? 0 : state.time / state.duration,
   getWorks: (state) => state.works.data,
   // state.works.data.map((w) => ({ ...w, isActive: state.active === w.path })),
   getAuthors: (state, { getActiveAuthor }) =>
@@ -65,7 +80,9 @@ const getters = {
   getActiveAuthor: (state, { getActiveWork }) =>
     getActiveWork ? getActiveWork.author : null,
   getActiveWork: (state) =>
-    state.works.data.find((w) => w.path === state.active),
+    state.clicked
+      ? state.works.data.find((w) => w.path === state.active)
+      : null,
 }
 
 const actions = {
@@ -81,6 +98,7 @@ const actions = {
   },
   shuffleWorks({ commit }) {
     commit('SHUFFLE_WORKS')
+    commit('SET_ACTIVE')
     commit('SET_SHUFFLING', 1)
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'auto' })

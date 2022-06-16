@@ -7,6 +7,13 @@
     @click.stop="fullscreen = !fullscreen"
   >
     <nuxt-content :document="document" class="content" />
+    <media-player
+      :audio-src="document['audio-src']"
+      :play="active"
+      :video-src="document['video-src']"
+      :vimeo-id="document['vimeoID']"
+      :muted-autoplay="document['autoplay']"
+    />
     <a
       v-if="document['image-src']"
       :href="document['image-href'] || document['image-src']"
@@ -14,11 +21,7 @@
       class="content"
       ><img :src="document['image-src']" class="mx-auto"
     /></a>
-    <div v-else-if="!!document['audio-src']">
-      <audio ref="player" controls loop class="mx-auto">
-        <source :src="document['audio-src']" />
-      </audio>
-    </div>
+    <!--
     <div v-else-if="!!document['video-src']">
       <video
         :ref="!document['autoplay'] ? 'player' : null"
@@ -29,20 +32,22 @@
       >
         <source :src="document['video-src']" />
       </video>
-    </div>
+    </div>-->
     <client-only>
-      <div v-if="!!document.vimeoID" class="embed-container select-none">
+      <!--<div v-if="!!document.vimeoID" class="embed-container select-none">
         <vimeo-player
           ref="player"
           :video-id="'' + document.vimeoID"
-          :options="{ dnt: true, loop: true, title: false }"
+          :options="{ dnt: true, loop: true, title: false, controls: false }"
         />
-      </div>
+      </div>-->
     </client-only>
   </div>
 </template>
 <script>
+import MediaPlayer from './MediaPlayer.vue'
 export default {
+  components: { MediaPlayer },
   name: 'WorkElement',
   props: {
     // eslint-disable-next-line vue/require-default-prop
@@ -90,23 +95,5 @@ export default {
 .con video {
   /*border-radius: 6px;*/
   /*box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);*/
-}
-
-.embed-container {
-  position: relative;
-  padding-bottom: 56.25%;
-  height: 0;
-  overflow: hidden;
-  max-width: 100%;
-}
-
-.embed-container iframe,
-.embed-container object,
-.embed-container embed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
 }
 </style>
