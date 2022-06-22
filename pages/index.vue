@@ -35,7 +35,7 @@
               </span>
             </li>
           </ul>
-          <div class="mt-8 font-sans flex-grow">
+          <div class="mt-8 flex-grow">
             <a
               class="text-red-500 underline cursor-pointer"
               @click="$store.dispatch('shuffleWorks')"
@@ -163,6 +163,12 @@ export default {
   },
 }
 </script>
+<style>
+body {
+  overflow-y: scroll;
+}
+</style>
+
 <style scoped>
 .author {
   white-space: normal;
