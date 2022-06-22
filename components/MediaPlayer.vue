@@ -6,6 +6,7 @@
         ref="player"
         :autoplay="mutedAutoplay"
         :muted="mutedAutoplay"
+        :loop="loop"
         @click="onClick"
         @dblclick="onDblclick"
         @timeupdate="onTimeupdate"
@@ -16,6 +17,7 @@
         v-else-if="audioSrc"
         ref="player"
         class="mx-auto"
+        :loop="loop"
         @click="onClick"
         @dblclick="onDblclick"
         @timeupdate="onTimeupdate"
@@ -27,7 +29,7 @@
           ref="vimeoPlayer"
           class="w-full"
           :video-id="'' + vimeoId"
-          :options="{ dnt: true, loop: true, title: false, controls: false }"
+          :options="{ dnt: true, loop: loop, title: false, controls: false }"
           @timeupdate="onVimeoTimeupdate"
         />
       </div>
@@ -70,6 +72,8 @@ export default {
     play: { type: Boolean, default: false },
     vimeoId: { type: [String, Number], default: null },
     mutedAutoplay: { type: Boolean, default: false },
+    loop: { type: Boolean, default: true },
+    controls: { type: Boolean, default: true },
   },
   data() {
     return {

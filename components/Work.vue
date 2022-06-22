@@ -13,6 +13,7 @@
       :video-src="document['video-src']"
       :vimeo-id="document['vimeoID']"
       :muted-autoplay="document['autoplay']"
+      :loop="document['loop']"
     />
     <a
       v-if="document['image-src']"
