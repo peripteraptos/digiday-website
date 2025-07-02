@@ -14,12 +14,33 @@ importers:
       core-js:
         specifier: ^3.43.0
         version: 3.43.0
+      node-fetch-native:
+        specifier: ^1.6.6
+        version: 1.6.6
       nuxt:
         specifier: ^2.18.1
         version: 2.18.1(consola@3.4.2)(prettier@2.8.8)(typescript@5.8.3)(vue@2.7.16)
+      property-information:
+        specifier: ^7.1.0
+        version: 7.1.0
+      ufo:
+        specifier: ^1.6.1
+        version: 1.6.1
       vue:
         specifier: ^2.7.16
         version: 2.7.16
+      vue-client-only:
+        specifier: ^2.1.0
+        version: 2.1.0
+      vue-meta:
+        specifier: ^2.4.0
+        version: 2.4.0
+      vue-no-ssr:
+        specifier: ^1.1.1
+        version: 1.1.1
+      vue-router:
+        specifier: ^2.8.1
+        version: 2.8.1(vue@2.7.16)
       vue-server-renderer:
         specifier: ^2.7.16
         version: 2.7.16
@@ -29,6 +50,9 @@ importers:
       vue-vimeo-player:
         specifier: ^0.2.2
         version: 0.2.2(vue@2.7.16)
+      vuex:
+        specifier: ^4.1.0
+        version: 4.1.0(vue@2.7.16)
       webpack:
         specifier: ^4.47.0
         version: 4.47.0
@@ -1341,6 +1365,9 @@ packages:
 
   '@vue/component-compiler-utils@3.3.0':
     resolution: {integrity: sha512-97sfH2mYNU+2PzGrmK2haqffDpVASuib9/w2/noxiFi31Z54hW+q3izKQXXQZSNhtiUpAI36uSuYepeBe4wpHQ==}
+
+  '@vue/devtools-api@6.6.4':
+    resolution: {integrity: sha512-sGhTPMuXqZ1rVOk32RylztWkfXTRhuS7vgAKv0zjqk8gbsHkJ7xfFf+jbySxt7tWObEJwyKaHMikV/WGDiQm8g==}
 
   '@webassemblyjs/ast@1.9.0':
     resolution: {integrity: sha512-C6wW5L+b7ogSDVqymbkkvuW9kruN//YisMED04xzeBBqjHa2FYnmvOlS6Xj68xWQRgWvI9cIglsjFowH/RJyEA==}
@@ -5150,6 +5177,9 @@ packages:
   property-information@5.6.0:
     resolution: {integrity: sha512-YUHSPk+A30YPv+0Qf8i9Mbfe/C0hdPXk1s1jPVToV8pk8BQtpw10ct89Eo7OWkutrwqvT0eicAxlOg3dOAu8JA==}
 
+  property-information@7.1.0:
+    resolution: {integrity: sha512-TwEZ+X+yCJmYfL7TPUOcvBZ4QfoT5YenQiJuX//0th53DE6w0xxLEtfK3iyryQFddXuvkIk51EEgrJQ0WJkOmQ==}
+
   protocols@2.0.2:
     resolution: {integrity: sha512-hHVTzba3wboROl0/aWRRG9dMytgH6ow//STBZh43l/wQgmMhYhOFi0EHWAPtoCz9IAUymsyP0TSBHkhgMEGNnQ==}
 
@@ -6238,6 +6268,11 @@ packages:
   vue-no-ssr@1.1.1:
     resolution: {integrity: sha512-ZMjqRpWabMPqPc7gIrG0Nw6vRf1+itwf0Itft7LbMXs2g3Zs/NFmevjZGN1x7K3Q95GmIjWbQZTVerxiBxI+0g==}
 
+  vue-router@2.8.1:
+    resolution: {integrity: sha512-MC4jacHBhTPKtmcfzvaj2N7g6jgJ/Z/eIjZdt+yUaUOM1iKC0OUIlO/xCtz6OZFFTNUJs/1YNro2GN/lE+nOXA==}
+    peerDependencies:
+      vue: ^2
+
   vue-router@3.6.5:
     resolution: {integrity: sha512-VYXZQLtjuvKxxcshuRAwjHnciqZVoXAjTjcqBTz4rKc8qih9g9pI3hbDjmqXaHdgL3v8pV6P8Z335XvHzESxLQ==}
     peerDependencies:
@@ -6268,6 +6303,11 @@ packages:
     resolution: {integrity: sha512-ETW44IqCgBpVomy520DT5jf8n0zoCac+sxWnn+hMe/CzaSejb/eVw2YToiXYX+Ex/AuHHia28vWTq4goAexFbw==}
     peerDependencies:
       vue: ^2.0.0
+
+  vuex@4.1.0:
+    resolution: {integrity: sha512-hmV6UerDrPcgbSy9ORAtNXDr9M4wlNP4pEFKye4ujJF8oqgFFuxDCdOLS3eNoRTtq5O3hoBDh9Doj1bQMYHRbQ==}
+    peerDependencies:
+      vue: ^3.2.0
 
   watchpack-chokidar2@2.0.1:
     resolution: {integrity: sha512-nCFfBIPKr5Sh61s4LPpy1Wtfi0HE8isJ3d2Yb5/Ppw2P2B/3eVSEBjKfN0fmHJSK14+31KwMKmcrzs2GM4P0Ww==}
@@ -8479,6 +8519,8 @@ snapshots:
       - velocityjs
       - walrus
       - whiskers
+
+  '@vue/devtools-api@6.6.4': {}
 
   '@webassemblyjs/ast@1.9.0':
     dependencies:
@@ -12827,6 +12869,8 @@ snapshots:
     dependencies:
       xtend: 4.0.2
 
+  property-information@7.1.0: {}
+
   protocols@2.0.2: {}
 
   proxy-addr@2.0.7:
@@ -14156,6 +14200,10 @@ snapshots:
 
   vue-no-ssr@1.1.1: {}
 
+  vue-router@2.8.1(vue@2.7.16):
+    dependencies:
+      vue: 2.7.16
+
   vue-router@3.6.5(vue@2.7.16):
     dependencies:
       vue: 2.7.16
@@ -14196,6 +14244,11 @@ snapshots:
 
   vuex@3.6.2(vue@2.7.16):
     dependencies:
+      vue: 2.7.16
+
+  vuex@4.1.0(vue@2.7.16):
+    dependencies:
+      '@vue/devtools-api': 6.6.4
       vue: 2.7.16
 
   watchpack-chokidar2@2.0.1:

@@ -15,11 +15,19 @@
   "dependencies": {
     "@nuxt/content": "^1.15.1",
     "core-js": "^3.43.0",
+    "node-fetch-native": "^1.6.6",
     "nuxt": "^2.18.1",
+    "property-information": "^7.1.0",
+    "ufo": "^1.6.1",
     "vue": "^2.7.16",
+    "vue-client-only": "^2.1.0",
+    "vue-meta": "^2.4.0",
+    "vue-no-ssr": "^1.1.1",
+    "vue-router": "^2.8.1",
     "vue-server-renderer": "^2.7.16",
     "vue-template-compiler": "^2.7.16",
     "vue-vimeo-player": "^0.2.2",
+    "vuex": "^4.1.0",
     "webpack": "^4.47.0"
   },
   "devDependencies": {
