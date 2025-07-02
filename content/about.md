@@ -17,4 +17,4 @@ Wir freuen uns, anlässlich des Digitaltages 2022 auf dieser Microsite eine Anth
 
 Die Rechte an den einzelnen Beiträgen liegen bei den Contributoren.
 
-[Impressum](https://staedelschule.de/de/information/impressum)
+[Impressum](https://staedelschule.de/de/impressum)
